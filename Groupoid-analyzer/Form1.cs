@@ -17,6 +17,13 @@ namespace Groupoid_analyzer
         {
             InitializeComponent();
         }
+        public Form1(List<string> universum)
+        {
+            InitializeComponent();
+            
+            foreach (string st in universum) Universum_textBox.Text += st + Environment.NewLine;
+
+        }
         private List<string> RemoveSame(List<string> lt)
         {
             List<string> r_list = new List<string>();
@@ -38,7 +45,7 @@ namespace Groupoid_analyzer
                 foreach (string st in Universum) Universum_textBox.Text += st + Environment.NewLine;
                 if (Universum.Count <= 10)
                 {
-                    Form f = new Cayley_table(Universum);
+                    Cayley_table f = new Cayley_table(Universum);
                     f.Show();
                     this.Hide();
                 }
