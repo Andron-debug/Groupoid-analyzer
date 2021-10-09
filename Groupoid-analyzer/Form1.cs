@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Groupoid_analyzer
@@ -20,7 +14,7 @@ namespace Groupoid_analyzer
         public Form1(List<string> universum)
         {
             InitializeComponent();
-            
+
             foreach (string st in universum) Universum_textBox.Text += st + Environment.NewLine;
 
         }
@@ -51,7 +45,7 @@ namespace Groupoid_analyzer
                 }
                 else MessageBox.Show("Универсум не должен привышать 10 элементов");
             }
-            
+
         }
     }
 }

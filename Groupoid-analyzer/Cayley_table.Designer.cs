@@ -55,6 +55,7 @@ namespace Groupoid_analyzer
             this.Next.TabIndex = 1;
             this.Next.Text = "Анализировать";
             this.Next.UseVisualStyleBackColor = true;
+            this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
             // Cayley_tableLayoutPanel
             // 

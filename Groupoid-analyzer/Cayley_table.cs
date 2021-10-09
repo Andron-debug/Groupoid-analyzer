@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Groupoid_analyzer
@@ -51,7 +46,7 @@ namespace Groupoid_analyzer
                 }
 
             foreach (ColumnStyle s in Cayley_tableLayoutPanel.ColumnStyles) s.SizeType = SizeType.AutoSize;
-            TextBox lt = Cayley_table_set[Universum.Count-1, Universum.Count-1];
+            TextBox lt = Cayley_table_set[Universum.Count - 1, Universum.Count - 1];
             if (lt.Location.X + lt.Width + 35 > 350)
                 this.Width = lt.Location.X + lt.Width + 35;
             else
@@ -70,6 +65,22 @@ namespace Groupoid_analyzer
             Form1 f = new Form1(Universum);
             f.Show();
             this.Hide();
+        }
+
+        private void Next_Click(object sender, EventArgs e)
+        {
+            bool closed = true; // замкнутая;
+            for (int i = 0; i < Universum.Count;  i++)
+                for(int j = 0; j< Universum.Count; j++)
+                {
+                    string el = Cayley_table_set[i, j].Text;
+
+                    //Проверка на замкнутость
+                    if (!Universum.Contains(el)) closed = false;
+                }
+
+            Result r = new Result();
+            r.ShowDialog();
         }
     }
 }
