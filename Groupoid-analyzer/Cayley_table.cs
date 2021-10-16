@@ -66,11 +66,21 @@ namespace Groupoid_analyzer
             f.Show();
             this.Hide();
         }
+        /*
+            To do
+                замкнутой +
+                ассоциативной 
+                разрешимой
+                обратимой
+                коммутативной
+                нейтральный элемент +
+         */
 
         private void Next_Click(object sender, EventArgs e)
         {
             bool closed = true; // Замкнутость
             string one = null; // Единичный эелемент
+            bool commutability = true; // Комутативность
 
             //Проверка на замкнутость
             for (int i = 0; i < Universum.Count; i++)
@@ -119,8 +129,21 @@ namespace Groupoid_analyzer
                     }
                 if (is_one) break;
             }
-            
-           Result r = new Result(closed, one);
+
+            // Коммутативность
+            for (int i = 0; i < Universum.Count; i++)
+            {
+                for (int j = 0; j < Universum.Count; j++)
+                {
+                    if (Cayley_table_set[i, j].Text != Cayley_table_set[j, i].Text)
+                    {
+                        commutability = false;
+                        break;
+                    }
+                }
+                if (!commutability) break;
+            }
+           Result r = new Result(closed, one, commutability);
            r.ShowDialog();
         }
     }
