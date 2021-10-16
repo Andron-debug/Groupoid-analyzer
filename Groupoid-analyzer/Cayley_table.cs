@@ -108,13 +108,13 @@ namespace Groupoid_analyzer
                     }
                     else one = Universum[j];
                 }
-                
+
                 // Проверка на единичнйы элемент по столбцу
                 if (is_one)
-                    for (int j2 = 0; j2<Universum.Count; j2++)
+                    for (int j2 = 0; j2 < Universum.Count; j2++)
                     {
                         string el = Cayley_table_set[j, j2].Text;
-                        if(el != Universum[j2])
+                        if (el != Universum[j2])
                         {
                             is_one = false;
                             break;
@@ -148,8 +148,8 @@ namespace Groupoid_analyzer
                 for (int i2 = 0; i2 < Universum.Count; i2++)
                 {
                     string el = column[i2];
-                    int count = 0; 
-                    for (int i3 = 0; i3< Universum.Count; i3++)
+                    int count = 0;
+                    for (int i3 = 0; i3 < Universum.Count; i3++)
                     {
                         if (column[i3] == el) count++;
                         if (count > 1)
@@ -193,12 +193,12 @@ namespace Groupoid_analyzer
             }
 
             //Проверка на обратимость
-            if ((one != null)&&(commutability))
+            if ((one != null) && (commutability))
             {
-                for (int i = 0; i < Universum.Count; i++) 
-                { 
+                for (int i = 0; i < Universum.Count; i++)
+                {
                     int count = 0;
-                    for (int j = 0; j<Universum.Count; j++)
+                    for (int j = 0; j < Universum.Count; j++)
                     {
                         if (Cayley_table_set[i, j].Text == one) count++;
                     }
@@ -215,7 +215,7 @@ namespace Groupoid_analyzer
             if (closed)
             {
                 for (int a = 0; a < Universum.Count; a++)
-                { 
+                {
                     for (int b = 0; b < Universum.Count; b++)
                     {
                         for (int c = 0; c < Universum.Count; c++)

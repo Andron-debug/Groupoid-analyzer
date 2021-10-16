@@ -47,5 +47,11 @@ namespace Groupoid_analyzer
             }
 
         }
+
+        private void About_Click(object sender, EventArgs e)
+        {
+            Form f = new About();
+            f.Show();
+        }
     }
 }

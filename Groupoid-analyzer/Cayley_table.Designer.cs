@@ -82,9 +82,9 @@ namespace Groupoid_analyzer
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(345, 51);
+            this.label1.Size = new System.Drawing.Size(318, 51);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Таблица Кейли";
+            this.label1.Text = "Таблица Кэли";
             // 
             // Cayley_table
             // 
