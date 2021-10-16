@@ -69,18 +69,58 @@ namespace Groupoid_analyzer
 
         private void Next_Click(object sender, EventArgs e)
         {
-            bool closed = true; // замкнутая;
-            for (int i = 0; i < Universum.Count;  i++)
-                for(int j = 0; j< Universum.Count; j++)
+            bool closed = true; // Замкнутость
+            string one = null;
+            //Проверка на замкнутость
+            for (int i = 0; i < Universum.Count; i++)
+            {
+                for (int j = 0; j < Universum.Count; j++)
                 {
                     string el = Cayley_table_set[i, j].Text;
 
                     //Проверка на замкнутость
-                    if (!Universum.Contains(el)) closed = false;
+                    if (!Universum.Contains(el))
+                    {
+                        closed = false;
+                        break;
+                    }
                 }
+                if (!closed) break;
+            }
 
-            Result r = new Result();
-            r.ShowDialog();
+            // Проверка на единичнйы элемент
+            for (int i = 0; i < Universum.Count; i++)
+            {
+                bool is_one = true;
+                one = null;
+                // Проверка на единичнйы элемент по строке
+                for (int j = 0; j < Universum.Count; j++)
+                {
+                    string el = Cayley_table_set[i, j].Text;
+
+                    if (el != Universum[j])
+                    {
+                        is_one = false;
+                        break;
+                    }
+                    else one = Universum[i];
+                }
+                // Проверка на единичнйы элемент по столбцу
+                if (is_one) for (int i2 = 0; i2 < Universum.Count; i2++)
+                    {
+                        string el = Cayley_table_set[i2, i].Text;
+                        // Проверка на единичнйы элемент по столбцу
+                        if (el != Universum[i2])
+                        {
+                            is_one = false;
+                            break;
+                        }
+                    }
+                if (is_one) break;
+            }
+            
+           Result r = new Result(closed, one);
+           r.ShowDialog();
         }
     }
 }
