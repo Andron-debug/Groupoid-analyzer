@@ -70,15 +70,14 @@ namespace Groupoid_analyzer
         private void Next_Click(object sender, EventArgs e)
         {
             bool closed = true; // Замкнутость
-            string one = null;
+            string one = null; // Единичный эелемент
+
             //Проверка на замкнутость
             for (int i = 0; i < Universum.Count; i++)
             {
                 for (int j = 0; j < Universum.Count; j++)
                 {
                     string el = Cayley_table_set[i, j].Text;
-
-                    //Проверка на замкнутость
                     if (!Universum.Contains(el))
                     {
                         closed = false;
@@ -89,28 +88,30 @@ namespace Groupoid_analyzer
             }
 
             // Проверка на единичнйы элемент
-            for (int i = 0; i < Universum.Count; i++)
+            for (int j = 0; j < Universum.Count; j++)
             {
                 bool is_one = true;
                 one = null;
+                int i;
                 // Проверка на единичнйы элемент по строке
-                for (int j = 0; j < Universum.Count; j++)
+                for (i = 0; i < Universum.Count; i++)
                 {
                     string el = Cayley_table_set[i, j].Text;
 
-                    if (el != Universum[j])
+                    if (el != Universum[i])
                     {
                         is_one = false;
                         break;
                     }
-                    else one = Universum[i];
+                    else one = Universum[j];
                 }
+                
                 // Проверка на единичнйы элемент по столбцу
-                if (is_one) for (int i2 = 0; i2 < Universum.Count; i2++)
+                if (is_one)
+                    for (int j2 = 0; j2<Universum.Count; j2++)
                     {
-                        string el = Cayley_table_set[i2, i].Text;
-                        // Проверка на единичнйы элемент по столбцу
-                        if (el != Universum[i2])
+                        string el = Cayley_table_set[j, j2].Text;
+                        if(el != Universum[j2])
                         {
                             is_one = false;
                             break;
