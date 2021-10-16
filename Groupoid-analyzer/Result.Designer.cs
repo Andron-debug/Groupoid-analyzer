@@ -45,7 +45,7 @@ namespace Groupoid_analyzer
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(434, 51);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Свойства операций";
+            this.label1.Text = "Свойства операции";
             // 
             // Characteristic_textBox
             // 

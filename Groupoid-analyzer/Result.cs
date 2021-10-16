@@ -12,7 +12,7 @@ namespace Groupoid_analyzer
 {
     public partial class Result : Form
     {
-        public Result(bool closed, string one, bool commutability)
+        public Result(bool closed, string one, bool commutability, bool resolvability)
         {
             InitializeComponent();
 
@@ -25,6 +25,8 @@ namespace Groupoid_analyzer
             if(commutability) Characteristic_textBox.Text += "Коммутативная" + Environment.NewLine;
             else Characteristic_textBox.Text += "Не коммутативная" + Environment.NewLine;
 
+            if(resolvability) Characteristic_textBox.Text += "Разрешимая" + Environment.NewLine;
+            else Characteristic_textBox.Text += "Не разрешимая" + Environment.NewLine;
         }
 
         private void Result_Load(object sender, EventArgs e)

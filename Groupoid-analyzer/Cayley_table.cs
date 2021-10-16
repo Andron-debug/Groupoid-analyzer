@@ -72,7 +72,7 @@ namespace Groupoid_analyzer
                 ассоциативной 
                 разрешимой
                 обратимой
-                коммутативной
+                коммутативной +
                 нейтральный элемент +
          */
 
@@ -81,7 +81,7 @@ namespace Groupoid_analyzer
             bool closed = true; // Замкнутость
             string one = null; // Единичный эелемент
             bool commutability = true; // Комутативность
-
+            bool resolvability = true; // Разрешимость
             //Проверка на замкнутость
             for (int i = 0; i < Universum.Count; i++)
             {
@@ -130,7 +130,7 @@ namespace Groupoid_analyzer
                 if (is_one) break;
             }
 
-            // Коммутативность
+            //Проверка на коммутативность
             for (int i = 0; i < Universum.Count; i++)
             {
                 for (int j = 0; j < Universum.Count; j++)
@@ -143,7 +143,61 @@ namespace Groupoid_analyzer
                 }
                 if (!commutability) break;
             }
-           Result r = new Result(closed, one, commutability);
+
+            //Проверка на разрешимость по столбцам
+            for (int i = 0; i < Universum.Count; i++)
+            {
+                string[] column = new string[Universum.Count];
+                for (int j = 0; j < Universum.Count; j++)
+                {
+                    column[j] = Cayley_table_set[i, j].Text;
+                }
+                for (int i2 = 0; i2 < Universum.Count; i2++)
+                {
+                    string el = column[i2];
+                    int count = 0; 
+                    for (int i3 = 0; i3< Universum.Count; i3++)
+                    {
+                        if (column[i3] == el) count++;
+                        if (count > 1)
+                        {
+                            resolvability = false;
+                            break;
+                        }
+                    }
+                    if (!resolvability) break;
+                }
+                if (!resolvability) break;
+            }
+
+            //Проверка на разрешимость по строкам          
+            if (resolvability) for (int j = 0; j < Universum.Count; j++)
+            {
+                string[] line = new string[Universum.Count];
+                for (int i = 0; i < Universum.Count; i++)
+                {
+                    line[i] = Cayley_table_set[i, j].Text;
+                        Console.WriteLine(line[i]);
+                }
+                for (int i2 = 0; i2 < Universum.Count; i2++)
+                {
+                    string el = line[i2];
+                    int count = 0;
+                    for (int i3 = 0; i3 < Universum.Count; i3++)
+                    {
+                        if (line[i3] == el) count++;
+                        if (count > 1)
+                        {
+                            resolvability = false;
+                            break;
+                        }
+                    }
+                    if (!resolvability) break;
+                }
+                    if (!resolvability) break;
+                }
+
+            Result r = new Result(closed, one, commutability, resolvability);
            r.ShowDialog();
         }
     }
