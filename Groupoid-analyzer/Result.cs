@@ -33,6 +33,17 @@ namespace Groupoid_analyzer
 
             if (associative) Characteristic_textBox.Text += "Ассоциативная" + Environment.NewLine;
             else Characteristic_textBox.Text += "Не ассоциативная" + Environment.NewLine;
+
+            if (closed)
+            {
+                if(associative) Сlassification_textBox.Text = "Полугруппа";
+                if (resolvability) Сlassification_textBox.Text = "Квазигруппа";
+                if (resolvability && (one != null)) Сlassification_textBox.Text = "Лупа";
+                if (associative && (one != null)) Сlassification_textBox.Text = "Моноид";
+                if (associative && (one != null)&& resolvability) Сlassification_textBox.Text = "Группа";
+                if (associative && (one != null) && resolvability&& commutability) Сlassification_textBox.Text = "Абелева группа";
+            }
+            else Сlassification_textBox.Text = "Не является гуппоидом";
         }
 
         private void Result_Load(object sender, EventArgs e)
