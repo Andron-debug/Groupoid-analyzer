@@ -70,7 +70,7 @@ namespace Groupoid_analyzer
             To do
                 замкнутой +
                 ассоциативной 
-                разрешимой
+                разрешимой +
                 обратимой
                 коммутативной +
                 нейтральный элемент +
@@ -82,6 +82,7 @@ namespace Groupoid_analyzer
             string one = null; // Единичный эелемент
             bool commutability = true; // Комутативность
             bool resolvability = true; // Разрешимость
+            bool inverse = true; //Оратимость
             //Проверка на замкнутость
             for (int i = 0; i < Universum.Count; i++)
             {
@@ -169,35 +170,55 @@ namespace Groupoid_analyzer
                 }
                 if (!resolvability) break;
             }
-
-            //Проверка на разрешимость по строкам          
-            if (resolvability) for (int j = 0; j < Universum.Count; j++)
+            if (!commutability)
             {
-                string[] line = new string[Universum.Count];
-                for (int i = 0; i < Universum.Count; i++)
-                {
-                    line[i] = Cayley_table_set[i, j].Text;
-                        Console.WriteLine(line[i]);
-                }
-                for (int i2 = 0; i2 < Universum.Count; i2++)
-                {
-                    string el = line[i2];
-                    int count = 0;
-                    for (int i3 = 0; i3 < Universum.Count; i3++)
+                //Проверка на разрешимость по строкам          
+                if (resolvability) for (int j = 0; j < Universum.Count; j++)
                     {
-                        if (line[i3] == el) count++;
-                        if (count > 1)
+                        string[] line = new string[Universum.Count];
+                        for (int i = 0; i < Universum.Count; i++)
                         {
-                            resolvability = false;
-                            break;
+                            line[i] = Cayley_table_set[i, j].Text;
+                            Console.WriteLine(line[i]);
                         }
+                        for (int i2 = 0; i2 < Universum.Count; i2++)
+                        {
+                            string el = line[i2];
+                            int count = 0;
+                            for (int i3 = 0; i3 < Universum.Count; i3++)
+                            {
+                                if (line[i3] == el) count++;
+                                if (count > 1)
+                                {
+                                    resolvability = false;
+                                    break;
+                                }
+                            }
+                            if (!resolvability) break;
+                        }
+                        if (!resolvability) break;
                     }
-                    if (!resolvability) break;
-                }
-                    if (!resolvability) break;
-                }
+            }
 
-            Result r = new Result(closed, one, commutability, resolvability);
+            //Проверка на обратимость
+            if ((one != null)&&(commutability))
+            {
+                for (int i = 0; i < Universum.Count; i++) 
+                { 
+                    int count = 0;
+                    for (int j = 0; j<Universum.Count; j++)
+                    {
+                        if (Cayley_table_set[i, j].Text == one) count++;
+                    }
+                    if (count == 0)
+                    {
+                        inverse = false;
+                        break;
+                    }
+                }
+            }
+            else inverse = false;
+            Result r = new Result(closed, one, commutability, resolvability, inverse);
            r.ShowDialog();
         }
     }
