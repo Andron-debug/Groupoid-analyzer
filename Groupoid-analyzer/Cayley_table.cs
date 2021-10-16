@@ -66,15 +66,6 @@ namespace Groupoid_analyzer
             f.Show();
             this.Hide();
         }
-        /*
-            To do
-                замкнутой +
-                ассоциативной 
-                разрешимой +
-                обратимой
-                коммутативной +
-                нейтральный элемент +
-         */
 
         private void Next_Click(object sender, EventArgs e)
         {
@@ -82,7 +73,8 @@ namespace Groupoid_analyzer
             string one = null; // Единичный эелемент
             bool commutability = true; // Комутативность
             bool resolvability = true; // Разрешимость
-            bool inverse = true; //Оратимость
+            bool inverse = true; //Обратимость
+            bool associative = true; //Ассоциативность
             //Проверка на замкнутость
             for (int i = 0; i < Universum.Count; i++)
             {
@@ -218,8 +210,38 @@ namespace Groupoid_analyzer
                 }
             }
             else inverse = false;
-            Result r = new Result(closed, one, commutability, resolvability, inverse);
-           r.ShowDialog();
+
+            //Проверка на ассоциативность
+            if (closed)
+            {
+                for (int a = 0; a < Universum.Count; a++)
+                { 
+                    for (int b = 0; b < Universum.Count; b++)
+                    {
+                        for (int c = 0; c < Universum.Count; c++)
+                        {
+                            //a*(b*c) == (a*b)*c
+                            int a_b = 0;
+                            int b_c = 0;
+                            for (int i = 0; i < Universum.Count; i++)
+                            {
+                                if (Universum[i] == Cayley_table_set[a, b].Text) a_b = i;
+                                if (Universum[i] == Cayley_table_set[b, c].Text) b_c = i;
+                            }
+                            if (Cayley_table_set[a, b_c].Text != Cayley_table_set[a_b, c].Text)
+                            {
+                                associative = false;
+                                break;
+                            }
+                        }
+                        if (!associative) break;
+                    }
+                    if (!associative) break;
+                }
+            }
+            else associative = false;
+            Result r = new Result(closed, one, commutability, resolvability, inverse, associative);
+            r.ShowDialog();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Groupoid_analyzer
 {
     public partial class Result : Form
     {
-        public Result(bool closed, string one, bool commutability, bool resolvability, bool inverse)
+        public Result(bool closed, string one, bool commutability, bool resolvability, bool inverse, bool associative)
         {
             InitializeComponent();
 
@@ -28,8 +28,11 @@ namespace Groupoid_analyzer
             if(resolvability) Characteristic_textBox.Text += "Разрешимая" + Environment.NewLine;
             else Characteristic_textBox.Text += "Не разрешимая" + Environment.NewLine;
 
-            if (inverse) Characteristic_textBox.Text += "Обратима" + Environment.NewLine;
-            else Characteristic_textBox.Text += "Не обратима" + Environment.NewLine;
+            if (inverse) Characteristic_textBox.Text += "Обратимая" + Environment.NewLine;
+            else Characteristic_textBox.Text += "Не обратимая" + Environment.NewLine;
+
+            if (associative) Characteristic_textBox.Text += "Ассоциативная" + Environment.NewLine;
+            else Characteristic_textBox.Text += "Не ассоциативная" + Environment.NewLine;
         }
 
         private void Result_Load(object sender, EventArgs e)
