@@ -7,7 +7,7 @@
     <ProjectGuid>{2448EFE9-DD6D-4D57-8BFF-43FF8A37B301}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Groupoid_analyzer</RootNamespace>
-    <AssemblyName>Groupoid-analyzer</AssemblyName>
+    <AssemblyName>а</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

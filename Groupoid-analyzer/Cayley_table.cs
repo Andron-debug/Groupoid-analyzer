@@ -91,9 +91,10 @@ namespace Groupoid_analyzer
             }
 
             // Проверка на единичнйы элемент
+            bool is_one;
             for (int j = 0; j < Universum.Count; j++)
             {
-                bool is_one = true;
+                is_one = true;
                 one = null;
                 int i;
                 // Проверка на единичнйы элемент по строке
@@ -108,6 +109,7 @@ namespace Groupoid_analyzer
                     }
                     else one = Universum[j];
                 }
+                if (!is_one) one = null;
 
                 // Проверка на единичнйы элемент по столбцу
                 if (is_one)
@@ -137,68 +139,48 @@ namespace Groupoid_analyzer
                 if (!commutability) break;
             }
 
-            //Проверка на разрешимость по столбцам
             for (int i = 0; i < Universum.Count; i++)
             {
-                string[] column = new string[Universum.Count];
-                for (int j = 0; j < Universum.Count; j++)
+                string temp = Cayley_table_set[i, i].Text;
+                for (int j = i + 1; j < Universum.Count; j++)
                 {
-                    column[j] = Cayley_table_set[i, j].Text;
-                }
-                for (int i2 = 0; i2 < Universum.Count; i2++)
-                {
-                    string el = column[i2];
-                    int count = 0;
-                    for (int i3 = 0; i3 < Universum.Count; i3++)
+                    if (Cayley_table_set[i, j].Text == temp)
                     {
-                        if (column[i3] == el) count++;
-                        if (count > 1)
-                        {
-                            resolvability = false;
-                            break;
-                        }
+                        resolvability = false;
+                        break;
                     }
-                    if (!resolvability) break;
+                    if (Cayley_table_set[j, i].Text == temp)
+                    {
+                        resolvability = false;
+                        break;
+                    }
                 }
                 if (!resolvability) break;
             }
-            if (!commutability)
-            {
-                //Проверка на разрешимость по строкам          
-                if (resolvability) for (int j = 0; j < Universum.Count; j++)
-                    {
-                        string[] line = new string[Universum.Count];
-                        for (int i = 0; i < Universum.Count; i++)
-                        {
-                            line[i] = Cayley_table_set[i, j].Text;
-                            Console.WriteLine(line[i]);
-                        }
-                        for (int i2 = 0; i2 < Universum.Count; i2++)
-                        {
-                            string el = line[i2];
-                            int count = 0;
-                            for (int i3 = 0; i3 < Universum.Count; i3++)
-                            {
-                                if (line[i3] == el) count++;
-                                if (count > 1)
-                                {
-                                    resolvability = false;
-                                    break;
-                                }
-                            }
-                            if (!resolvability) break;
-                        }
-                        if (!resolvability) break;
-                    }
-            }
 
             //Проверка на обратимость
-            if ((one != null) && (commutability))
+            if ((one != null) )
             {
+                //Проверка на обратимость по строке
                 for (int i = 0; i < Universum.Count; i++)
                 {
                     int count = 0;
                     for (int j = 0; j < Universum.Count; j++)
+                    {
+                        if (Cayley_table_set[i, j].Text == one) count++;
+                    }
+                    if (count == 0)
+                    {
+                        inverse = false;
+                        break;
+                    }
+                }
+
+                //Проверка на обратимость по столбцу
+                if ((!commutability)&&(inverse)) for (int j = 0; j < Universum.Count; j++)
+                {
+                    int count = 0;
+                    for (int i = 0; i < Universum.Count; i++)
                     {
                         if (Cayley_table_set[i, j].Text == one) count++;
                     }
